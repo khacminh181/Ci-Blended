@@ -17,7 +17,6 @@ public class GameWindow extends JFrame {
         });
 
         this.setSize(600, 800);
-        this.setVisible(true);
         this.setResizable(false);
         this.setTitle("Title");
 
@@ -26,6 +25,7 @@ public class GameWindow extends JFrame {
 
         gameCanvas = new GameCanvas();
         this.setContentPane(gameCanvas);
+        this.setVisible(true);
 
     }
 }
