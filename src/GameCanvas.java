@@ -20,6 +20,6 @@ public class GameCanvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(background,0,0,null);
-        g.drawImage(player,0, 0, null);
+        g.drawImage(player,300-32, 650-40, null);
     }
 }
