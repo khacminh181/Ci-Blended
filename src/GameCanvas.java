@@ -21,11 +21,29 @@ public class GameCanvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(background,0,0,null);
-        g.drawImage(player,300-32, 650-40, null);
+        g.drawImage(player,x, y, null);
     }
 
+    int x = 300 - 32;
+    int y = 650 -40;
+
     public void keyPresses(KeyEvent e) {
-        System.out.println("Canvas handling key pressed");
+        if (e.getKeyCode() ==  KeyEvent.VK_RIGHT) {
+            x += 5;
+            this.repaint();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            x -= 5;
+            this.repaint();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            y += 5;
+            this.repaint();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            y -= 5;
+            this.repaint();
+        }
     }
 
     public void keyReleased(KeyEvent e) {
