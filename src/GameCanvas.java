@@ -14,7 +14,6 @@ public class GameCanvas extends JPanel {
     Image player;
 
     ArrayList<PlayerBullet> bs;
-
     int x = 300 - 32;
     int y = 650 -40;
 
