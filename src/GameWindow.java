@@ -26,7 +26,7 @@ public class GameWindow extends JFrame {
                 canvas.keyReleased(e);
             }
         });
-        this.setSize(600, 800);
+        this.setSize(Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
         this.setResizable(false);
         this.setTitle("Title");
 

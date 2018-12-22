@@ -10,26 +10,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameCanvas extends JPanel {
-    Image background;
-    Image player;
+    Background background;
+    Player player;
 
-    ArrayList<PlayerBullet> bs;
-    int x = 300 - 32;
-    int y = 650 -40;
+    public static ArrayList<PlayerBullet> bs;
 
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
 
-    boolean rightPressed = false;
-    boolean leftPressed = false;
-    boolean upPressed = false;
-    boolean downPressed = false;
-    boolean xPressed = false;
+
 
     public GameCanvas() {
         bs = new ArrayList<>();
-        background = ImageUtil.loadImage("images/background/background.png");
-        player = ImageUtil.loadImage("images/player/MB-69/player1.png");
+
+        background = new Background(0, 0);
+        player = new Player(300 - 32, 650 -40);
 
         backBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
@@ -42,84 +37,53 @@ public class GameCanvas extends JPanel {
 
     void keyPressed (KeyEvent e) {
         if (e.getKeyCode() ==  KeyEvent.VK_RIGHT) {
-            rightPressed = true;
+            KeyEventPress.rightPressed = true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            leftPressed = true;
+            KeyEventPress.leftPressed = true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            downPressed = true;
+            KeyEventPress.downPressed = true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            upPressed = true;
+            KeyEventPress.upPressed = true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_X) {
-            xPressed = true;
+            KeyEventPress.xPressed = true;
         }
     }
 
     void keyReleased (KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            rightPressed = false;
+            KeyEventPress.rightPressed = false;
         }
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            leftPressed = false;
+            KeyEventPress.leftPressed = false;
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            downPressed = false;
+            KeyEventPress.downPressed = false;
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            upPressed = false;
+            KeyEventPress.upPressed = false;
         }
         else if (e.getKeyCode() == KeyEvent.VK_X) {
-            xPressed = false;
+            KeyEventPress.xPressed = false;
         }
     }
 
     void run() {
-        if (rightPressed) {
-            x += 5;
-        }
-        if (leftPressed) {
-            x -= 5;
-        }
-        if (downPressed) {
-            y += 5;
-        }
-        if (upPressed) {
-            y -= 5;
-        }
+        player.run();
+
         for (PlayerBullet b : bs) {
-            b.y -= 2;
-        }
-
-        if (xPressed && !shootDisabled) {
-            PlayerBullet newBullet = new PlayerBullet();
-            newBullet.x = x;
-            newBullet.y = y;
-            newBullet.image = ImageUtil.loadImage("images/bullet/player/mb69bullet1.png");
-
-            bs.add(newBullet);
-            shootDisabled = true;
-        }
-
-        if (shootDisabled) {
-            count++;
-            if (count > 30) {
-                shootDisabled = false;
-                count = 0;
-            }
+            b.run();
         }
     }
 
-    boolean shootDisabled = false;
-    int count;
-
     void render() {
-        backBufferGraphics.drawImage(background,0,0,null);
-        backBufferGraphics.drawImage(player,x, y, null);
+        background.render(backBufferGraphics);
+        player.render(backBufferGraphics);
         for (PlayerBullet b : bs) {
-            backBufferGraphics.drawImage(b.image,b.x,b.y, null);
+            b.render(backBufferGraphics);
         }
 
         this.repaint();
