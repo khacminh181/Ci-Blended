@@ -73,5 +73,4 @@ public class Vector2D {
         float length = this.length();
         return new Vector2D(this.x / length, this.y / length);
     }
-
 }
