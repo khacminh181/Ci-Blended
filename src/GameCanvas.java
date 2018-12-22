@@ -29,13 +29,8 @@ public class GameCanvas extends JPanel {
 
     public GameCanvas() {
         bs = new ArrayList<>();
-
-        try {
-            background = ImageIO.read(new File("images/background/background.png"));
-            player = ImageIO.read(new File("images/player/MB-69/player1.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        background = ImageUtil.loadImage("images/background/background.png");
+        player = ImageUtil.loadImage("images/player/MB-69/player1.png");
 
         backBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
@@ -103,11 +98,8 @@ public class GameCanvas extends JPanel {
             PlayerBullet newBullet = new PlayerBullet();
             newBullet.x = x;
             newBullet.y = y;
-            try {
-                newBullet.image = ImageIO.read(new File("images/bullet/player/mb69bullet1.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            newBullet.image = ImageUtil.loadImage("images/bullet/player/mb69bullet1.png");
+
             bs.add(newBullet);
             shootDisabled = true;
         }
